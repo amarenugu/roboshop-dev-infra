@@ -14,7 +14,7 @@ resource "aws_instance" "mongodb" {
 }
 
 resource "terraform_data" "mongodb" {
-    trigger_replace =[
+    triggers_replace =[
         aws_instance.mongodb.id
     ]
 
@@ -25,9 +25,9 @@ resource "terraform_data" "mongodb" {
         host        = aws_instance.mongodb.private_ip
     }
 
-    provisioner "file"{
-        source = "bootstrap.sh"
-        target = "/tmp/bootstrap.sh"
+    provisioner "file" {
+        source      = "bootstrap.sh"
+        destination = "/tmp/bootstrap.sh"
     }
 
     provisioner "remote-exec" {
