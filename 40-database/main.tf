@@ -13,7 +13,7 @@ resource "aws_instance" "mongodb" {
 
 }
 
-resource_terraform_data "mongodb" {
+resource "terraform_data" "mongodb" {
     trigger_replace =[
         aws_instance.mongodb.id
     ]
@@ -32,7 +32,7 @@ resource_terraform_data "mongodb" {
 
     provisioner "remote-exec" {
         inline = [
-            "chmod +x /tmp/bootstrap.sh"
+            "chmod +x /tmp/bootstrap.sh",
             "sudo sh /tmp/bootstrap.sh mongodb ${var.environment}"
         ]
     }
