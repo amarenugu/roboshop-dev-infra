@@ -48,7 +48,7 @@ resource "aws_instance" "redis" {
     vpc_security_group_ids  = [local.redis_sg_id]
     subnet_id               = local.database_subnet_id
     user_data               = file("${path.module}/user-data.sh")
-    key_name                = "roboshop-key"
+    key_name                = "roboshop-key-rsa"
 
     tags = merge (
         {
@@ -67,7 +67,7 @@ resource "terraform_data" "redis" {
     connection {
         type        = "ssh"
         user        = "ec2-user"
-        private_key = file("~/.ssh/id_ed25519")
+        private_key = file("~/.ssh/roboshop-rsa")
         host        = aws_instance.redis.private_ip
     }
 
