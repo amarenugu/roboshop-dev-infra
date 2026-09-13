@@ -1,6 +1,11 @@
 #!/bin/bash
+set -x
+exec > /var/log/user-data-custom.log 2>&1
+
 mkdir -p /home/ec2-user/.ssh
-echo "<paste your roboshop-rsa.pub content here>" >> /home/ec2-user/.ssh/authorized_keys
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCpRHgorwAN9s732hbv7OXUi9SoPwMwEYRIcRYWxHM/8306DoaNNlMmD7jqgsqxUeMPfOGnEdUjUytv/NeYlZbFJG/s3Ibub0qOz4UbsWQksgFjIkgwywIqiOdH+FKF4oowJl3N3tMgGNXAyJjlQe1Uv8bkTPr9kpoXzXIU7zzkeK62Qalbny67rb8HTKYEVx6MMWa30YfRIaI043yIRBWlx9BkKix6z+okFOtE72IOOYjlxWNFigDvkTrUY7ODZC7kC950B7U0LwAkWxqy21zb6ZjRkirTx6cb69HCcXgANKyERUA6ERsxndct/f/Wzd9JOpbwMWrDTITgTTbz/uHEHDOpqJHqAUKKF2BduZrehbsZ7rKpxn4RnCSsBPoJWxPozHdl0GuleM06DoxTs/rhy2UdAjKjV9PxJA7XLC7cZH2xcnK5CiM9CbC10L7HF9i3QyEEXtbEVErpKpNrWfFD9qqVvcI9DI6RB5sLJiJF40kbFwICXHvchuBZG13oXu8gAeFKUZCNYN9G8LSXF7dglp6R4DD20eg6k4w11CmIqSToNMqVGWCRnSeLc2qU2XD/klJ/TtKU11GkCKStsei/0741rNT1VetJNObCQWifWl0DY502aVcV3HbmtB+qo0bYdWWrhgGVWRlgkVA2rom1RIcsoc3SLNXTqCPf3yEr6w== roboshop-key-rsa" >> /home/ec2-user/.ssh/authorized_keys
 chown -R ec2-user:ec2-user /home/ec2-user/.ssh
 chmod 700 /home/ec2-user/.ssh
 chmod 600 /home/ec2-user/.ssh/authorized_keys
+
+echo "USER_DATA_COMPLETED_SUCCESSFULLY"
