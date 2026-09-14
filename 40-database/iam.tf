@@ -2,7 +2,7 @@ resource "aws_iam_role" "mysql" {
     name = "${local.common_name}-mysql" #roboshop-dev-mysql
 
     #This is the trust policy, means we can attach this role to EC2 instance
-    assume_role_policy = jsoncode ({
+    assume_role_policy = jsonencode ({
     "Version": "2012-10-17",
     "Statement": [
         {
