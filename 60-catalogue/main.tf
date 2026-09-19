@@ -3,6 +3,7 @@ resource "aws_instance" "catalogue" {
     instance_type           = "t3.micro"
     vpc_security_group_ids  = [local.catalogue_sg_id]
     subnet_id               = local.private_subnet_id
+    key_name                = "roboshop-key-rsa"
     
     tags = merge (
         {
@@ -21,7 +22,8 @@ resource "terraform_data" "catalogue" {
     connection {
         type        = "ssh"
         user        = "ec2-user"
-        private_key = file("~/.ssh/roboshop-rsa")
+        #private_key = file("~/.ssh/roboshop-rsa")
+        password    = "DevOps321"
         host        = aws_instance.catalogue.private_ip
     }
 
