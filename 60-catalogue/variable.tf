@@ -9,3 +9,7 @@ variable "environment" {
 variable "app_version" {
     default = "v3"
 }
+
+variable "domain_name" {
+    default = "ammienugu.online"
+}
