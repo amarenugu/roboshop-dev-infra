@@ -135,6 +135,14 @@ resource "aws_autoscaling_group" "catalogue" {
   vpc_zone_identifier       = [local.private_subnet_id]
   target_group_arns         = [aws_lb_target_group.catalogue.arn] #Autoscaling launches into specific target group
 
+  instance_refresh {
+    strategy = "Rolling"
+    preferences {
+        min_healthy_percentage = 50
+    }
+    triggers = ["launch_template]
+  }
+
   dynamic "tag" {
     for_each = merge(
         {
