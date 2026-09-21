@@ -170,10 +170,7 @@ resource "aws_autoscaling_policy" "catalogue" {
       }
 
       target_value = 75.0
-
-    
   }
-
 }
 
 resource "aws_lb_listener_rule" "catalogue" {
@@ -190,4 +187,16 @@ resource "aws_lb_listener_rule" "catalogue" {
       values = ["catalogue.backend-alb-${var.environment}.${var.domain_name}"] #catalogue.backend-alb-dev.ammienugu.online
     }
   }
+}
+
+#Executes where terraform is running
+resource "terraform_data" "catalogue_delete" {
+    triggers_replace =[
+        aws_instance.catalogue.id
+    ]
+    depends_on  = [aws_autoscaling_policy.catalogue]
+
+    provisioner "local-exec" {
+        inline = [ "aws ec2 terminate-instances --instance-ids ${aws_instance.catalogue.id}" ]
+    }
 }
