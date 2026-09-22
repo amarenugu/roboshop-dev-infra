@@ -4,6 +4,7 @@ resource "aws_instance" "mongodb" {
     vpc_security_group_ids  = [local.mongodb_sg_id]
     subnet_id               = local.database_subnet_id
     user_data               = file("${path.module}/user-data.sh")
+    key_name                = "roboshop-key-rsa"
 
     tags = merge (
         {
